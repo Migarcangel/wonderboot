@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Viaje</title>
+
+    <link rel="stylesheet" th:href="@{/css/tripsForm.css}">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="navbar-brand">
+        <a th:href="@{/trips}">Wonderboot</a>
+    </div>
+
+    <div class="navbar-actions">
+
+        <a th:href="@{/profile}">
+            Mi perfil
+        </a>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+
+    </div>
+
+</nav>
+
+
+<div class="trip-form-container">
+
+    <h1>Crear viaje</h1>
+
+    <form th:action="@{/trips/create}" method="post">
+
+        <!-- =========================
+             INFORMACIÓN DEL VIAJE
+             ========================= -->
+
+        <section>
+
+            <h2>Información del viaje</h2>
+
+            <div class="form-group">
+
+                <label for="name">
+                    Nombre del viaje
+                </label>
+
+                <input type="text"
+                       id="name"
+                       name="name"
+                       required>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CIUDADES
+             ========================= -->
+
+        <section>
+
+            <h2>Ciudades</h2>
+
+            <div id="cities">
+
+                <!-- Primera ciudad -->
+
+                <div class="city">
+
+                    <div class="form-group">
+
+                        <label for="city-0">
+                            Ciudad:
+                        </label>
+
+                        <select id="city-0"
+                                name="cities[0].city"
+                                class="city-dropdown"
+                                required>
+                            <option></option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="startDate-0">
+                            Fecha de inicio
+                        </label>
+
+                        <input type="date"
+                               id="startDate-0"
+                               name="cities[0].startDate">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="endDate-0">
+                            Fecha de fin
+                        </label>
+
+                        <input type="date"
+                               id="endDate-0"
+                               name="cities[0].endDate">
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="expenses-0">
+                            Gastos
+                        </label>
+
+                        <input type="number"
+                               id="expenses-0"
+                               name="cities[0].expenses"
+                               min="0"
+                               step="0.01">
+
+                    </div>
+
+
+                    <button type="button"
+                            class="remove-city">
+
+                        Eliminar ciudad
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <button type="button"
+                    id="add-city"
+                    class="add-city">
+
+                + Añadir ciudad
+
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             CREAR VIAJE
+             ========================= -->
+
+        <button type="submit"
+                class="submit-button">
+
+            Crear viaje
+
+        </button>
+
+    </form>
+
+
+    <a class="cancel-link"
+       th:href="@{/trips}">
+
+        Cancelar
+
+    </a>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+
+    let cityIndex = 1;
+
+
+    /* =========================
+       SELECT2
+       ========================= */
+
+    function initializeCitySelect(select, initialValue) {
+    $(select).select2({
+        width: '100%',
+        minimumInputLength: 1,
+        allowClear: true,
+        placeholder: 'Selecciona una ciudad',
+        dropdownParent: $('.trip-form-container'),
+        ajax: {
+            url: '/api/cities',
+            dataType: 'json',
+            delay: 250,
+            data: function(params) {
+                console.log("Buscando:", params.term);
+                return {
+                    term: params.term
+                };
+            },
+            processResults: function(data) {
+                console.log("Respuesta API:", data);
+                return {
+                    results: data.map(function(city) {
+                        return {
+                            id: String(city.name),
+                            text: city.name
+                        };
+                    })
+                };
+            }
+        }
+    });
+
+    // Si hay un valor inicial, seleccionarlo
+    if (initialValue) {
+        const initialOption = new Option(initialValue, initialValue, true, true);
+        $(select).append(initialOption).trigger('change');
+    }
+}
+
+
+    /* =========================
+       PRIMER SELECT
+       ========================= */
+
+    initializeCitySelect(
+        document.getElementById("city-0")
+    );
+
+
+    /* =========================
+       AÑADIR CIUDAD
+       ========================= */
+
+    document.getElementById("add-city")
+        .addEventListener("click", function () {
+
+            const cities =
+                document.getElementById("cities");
+
+
+            const currentIndex = cityIndex;
+
+
+            const city =
+                document.createElement("div");
+
+            city.classList.add("city");
+
+
+            city.innerHTML = `
+
+                <hr>
+
+                <div class="form-group">
+
+                    <label for="city-${currentIndex}">
+                        Ciudad
+                    </label>
+
+                    <select
+                        id="city-${currentIndex}"
+                        name="cities[${currentIndex}].city"
+                        class="city-dropdown"
+                        required>
+                        <option></option>
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="startDate-${currentIndex}">
+                        Fecha de inicio
+                    </label>
+
+                    <input
+                        type="date"
+                        id="startDate-${currentIndex}"
+                        name="cities[${currentIndex}].startDate">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="endDate-${currentIndex}">
+                        Fecha de fin
+                    </label>
+
+                    <input
+                        type="date"
+                        id="endDate-${currentIndex}"
+                        name="cities[${currentIndex}].endDate">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="expenses-${currentIndex}">
+                        Gastos
+                    </label>
+
+                    <input
+                        type="number"
+                        id="expenses-${currentIndex}"
+                        name="cities[${currentIndex}].expenses"
+                        min="0"
+                        step="0.01">
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="remove-city">
+
+                    Eliminar ciudad
+
+                </button>
+
+            `;
+
+
+            cities.appendChild(city);
+
+
+            /*
+             * Inicializar Select2 DESPUÉS de introducir
+             * el elemento en el DOM.
+             */
+            initializeCitySelect(
+                city.querySelector(".city-dropdown")
+            );
+
+
+            cityIndex++;
+
+        });
+
+
+    /* =========================
+       ELIMINAR CIUDAD
+       ========================= */
+
+    document.addEventListener("click", function (event) {
+
+        if (!event.target.classList.contains("remove-city")) {
+            return;
+        }
+
+
+        const allCities =
+            document.querySelectorAll(".city");
+
+
+        /*
+         * No permitimos dejar el viaje sin ciudades.
+         */
+        if (allCities.length <= 1) {
+            return;
+        }
+
+
+        const city =
+            event.target.closest(".city");
+
+
+        const select =
+            city.querySelector(".city-dropdown");
+
+
+        /*
+         * Destruir Select2 antes de eliminar
+         * el elemento original.
+         */
+        if ($(select).hasClass("select2-hidden-accessible")) {
+
+            $(select).select2("destroy");
+
+        }
+
+
+        city.remove();
+
+
+        updateIndexes();
+
+    });
+
+
+    /* =========================
+       ACTUALIZAR ÍNDICES
+       ========================= */
+
+    function updateIndexes() {
+
+        const cities =
+            document.querySelectorAll(".city");
+
+
+        cities.forEach(function (city, index) {
+
+            const citySelect =
+                city.querySelector("[name$='.city']");
+
+            const startDate =
+                city.querySelector("[name$='.startDate']");
+
+            const endDate =
+                city.querySelector("[name$='.endDate']");
+
+            const expenses =
+                city.querySelector("[name$='.expenses']");
+
+
+            citySelect.name =
+                `cities[${index}].city`;
+
+            startDate.name =
+                `cities[${index}].startDate`;
+
+            endDate.name =
+                `cities[${index}].endDate`;
+
+            expenses.name =
+                `cities[${index}].expenses`;
+
+        });
+
+    }
+
+</script>
+
+</body>
+</html>

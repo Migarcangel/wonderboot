@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar perfil</title>
+    <link rel="stylesheet" th:href="@{/css/userForm.css}">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+</head>
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <h1>Editar perfil</h1>
+
+    <div class="error" th:if="${param.error}">
+        Campos incorrectos
+    </div>
+
+    <form th:action="@{/profile/edit}"
+          th:object="${profile}"
+          method="post">
+
+        <div class="form-group">
+            <label for="username">Usuario:</label>
+            <input type="text"
+                   id="username"
+                   name="username"
+                   th:value="${profile.username}">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text"
+                   id="name"
+                   name="name"
+                   th:value="${profile.name}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="surname">Apellidos:</label>
+            <input type="text"
+                   id="surname"
+                   name="surname"
+                   th:value="${profile.surname}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="country">País:</label>
+
+            <select id="country"
+                    name="country"
+                    class="country-dropdown"
+                    required>
+                <option th:value="${profile.country}"
+                        th:text="${profile.country}"
+                        selected>
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email"
+                   id="email"
+                   name="email"
+                   th:value="${profile.email}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Nueva contraseña:</label>
+            <input type="password"
+                   id="password"
+                   name="password">
+        </div>
+
+        <div class="form-group">
+            <label for="password2">Confirmar nueva contraseña:</label>
+            <input type="password"
+                   id="password2"
+                   name="password2">
+        </div>
+
+        <div class="form-group">
+            <label for="birthDate">Fecha de nacimiento:</label>
+            <input type="date"
+                   id="birthDate"
+                   name="birthDate"
+                   th:value="${profile.birthDate}"
+                   required>
+        </div>
+
+        <button type="submit">Guardar cambios</button>
+
+    </form>
+
+    <a class="login-link" th:href="@{/profile}">
+        Volver al perfil
+    </a>
+
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    console.log("1. Script cargado");
+    console.log("jQuery:", typeof $);
+    console.log("Select2:", typeof $.fn.select2);
+
+    $('.country-dropdown').select2({
+        minimumInputLength: 1,
+
+        ajax: {
+            url: '/api/countries',
+            dataType: 'json',
+            delay: 250,
+
+            data: function (params) {
+                console.log("2. Buscando:", params.term);
+
+                return {
+                    term: params.term
+                };
+            },
+
+            processResults: function (data) {
+                console.log("3. Respuesta:", data);
+
+                return {
+                    results: data.map(country => ({
+                        id: country.code,
+                        text: country.name
+                    }))
+                };
+            }
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,458 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+
+/* =========================
+   Navegación
+   ========================= */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 30px;
+
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.navbar-brand {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.navbar-brand a {
+    color: #222;
+    text-decoration: none;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-actions a {
+    color: #555;
+    text-decoration: none;
+}
+
+.navbar-actions a:hover {
+    color: #4a90e2;
+}
+
+.navbar-actions form {
+    margin: 0;
+}
+
+.navbar-actions button {
+    padding: 8px 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    background-color: white;
+    color: #555;
+
+    cursor: pointer;
+}
+
+.navbar-actions button:hover {
+    background-color: #eee;
+}
+
+
+/* =========================
+   Formulario
+   ========================= */
+
+.trip-form-container {
+    width: 600px;
+    max-width: 90%;
+
+    margin: 40px auto;
+    padding: 30px;
+
+    background-color: white;
+    border-radius: 10px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin: 0 0 30px;
+
+    text-align: center;
+}
+
+h2 {
+    margin: 0 0 20px;
+
+    font-size: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+
+/* =========================
+   Campos
+   ========================= */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    font-family: inherit;
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+
+/* =========================
+   Ciudad
+   ========================= */
+
+.city {
+    margin-bottom: 15px;
+    padding: 20px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    background-color: #fafafa;
+}
+
+.city hr {
+    display: none;
+}
+
+
+/* =========================
+   Select2
+   ========================= */
+
+/* =========================
+   Select2
+   ========================= */
+
+.city-dropdown {
+    width: 100%;
+}
+
+.select2-container {
+    width: 100% !important;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+
+/* Selector cerrado */
+
+.select2-container--default
+.select2-selection--single {
+    height: 40px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    background-color: white;
+}
+
+
+/* Texto seleccionado */
+
+.select2-container--default
+.select2-selection--single
+.select2-selection__rendered {
+    padding-left: 10px;
+    padding-right: 35px;
+
+    line-height: 38px;
+
+    color: #333;
+}
+
+
+/* Flecha */
+
+.select2-container--default
+.select2-selection--single
+.select2-selection__arrow {
+    height: 38px;
+
+    top: 1px;
+    right: 8px;
+}
+
+
+/* X para limpiar */
+
+.select2-container--default
+.select2-selection--single
+.select2-selection__clear {
+    position: absolute;
+
+    top: 50%;
+    right: 30px;
+
+    margin: 0;
+
+    transform: translateY(-50%);
+
+    line-height: normal;
+
+    color: #777;
+
+    cursor: pointer;
+}
+
+.select2-container--default
+.select2-selection--single
+.select2-selection__clear:hover {
+    color: #333;
+}
+
+
+/* Selector abierto / enfocado */
+
+.select2-container--default.select2-container--focus
+.select2-selection--single,
+
+.select2-container--default.select2-container--open
+.select2-selection--single {
+    border-color: #4a90e2;
+
+    outline: none;
+}
+
+
+/* Dropdown */
+
+.select2-container--default
+.select2-dropdown {
+    border: 1px solid #4a90e2;
+    border-radius: 5px;
+
+    overflow: hidden;
+}
+
+
+/* Buscador */
+
+.select2-container--default
+.select2-search--dropdown {
+    padding: 8px;
+}
+
+.select2-container--default
+.select2-search--dropdown
+.select2-search__field {
+    width: 100%;
+
+    padding: 9px;
+
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.select2-container--default
+.select2-search--dropdown
+.select2-search__field:focus {
+    outline: none;
+
+    border-color: #4a90e2;
+}
+
+
+/* Opciones */
+
+.select2-container--default
+.select2-results__option {
+    padding: 10px 12px;
+
+    cursor: pointer;
+}
+
+
+/* Opción sobre la que está el ratón */
+
+.select2-container--default
+.select2-results__option--highlighted[aria-selected] {
+    background-color: #4a90e2;
+
+    color: white;
+}
+
+
+/* Opción seleccionada */
+
+.select2-container--default
+.select2-results__option[aria-selected="true"] {
+    background-color: #f0f6ff;
+
+    color: #333;
+}
+
+
+/* Sin resultados */
+
+.select2-container--default
+.select2-results__option--disabled {
+    color: #888;
+}
+
+
+/* =========================
+   Botón eliminar ciudad
+   ========================= */
+
+.remove-city {
+    padding: 8px 12px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: #ffe5e5;
+    color: #c62828;
+
+    cursor: pointer;
+}
+
+.remove-city:hover {
+    background-color: #ffd0d0;
+}
+
+
+/* =========================
+   Añadir ciudad
+   ========================= */
+
+.add-city {
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px dashed #4a90e2;
+    border-radius: 5px;
+
+    background-color: white;
+    color: #4a90e2;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.add-city:hover {
+    background-color: #f0f6ff;
+}
+
+
+/* =========================
+   Crear viaje
+   ========================= */
+
+.submit-button {
+    width: 100%;
+
+    padding: 11px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: #4a90e2;
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #357abd;
+}
+
+
+/* =========================
+   Eliminar viaje
+   ========================= */
+
+.delete-form {
+    margin-top: 12px;
+}
+
+.delete-button {
+    width: 100%;
+
+    padding: 10px;
+
+    border: 1px solid #c62828;
+    border-radius: 5px;
+
+    background-color: white;
+    color: #c62828;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #ffe5e5;
+}
+
+
+/* =========================
+   Cancelar
+   ========================= */
+
+.cancel-link {
+    display: block;
+
+    margin-top: 18px;
+
+    text-align: center;
+
+    color: #777;
+    text-decoration: none;
+}
+
+.cancel-link:hover {
+    text-decoration: underline;
+}

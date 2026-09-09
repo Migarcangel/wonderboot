@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis viajes</title>
+    <link rel="stylesheet" th:href="@{/css/trips.css}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="navbar-brand">
+        <a th:href="@{/trips}">Wonderboot</a>
+    </div>
+
+    <div class="navbar-actions">
+        <a th:href="@{/profile}">
+            Mi perfil
+        </a>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    </div>
+
+</nav>
+
+<div class="trips-container">
+
+    <div class="header">
+        <h1>Mis viajes</h1>
+        <a class="create-button" th:href="@{/trips/create}">
+            + Crear viaje
+        </a>
+    </div>
+
+    <div class="empty-message" th:if="${#lists.isEmpty(trips)}">
+        <p>No tienes ningún viaje creado.</p>
+    </div>
+
+    <div class="trip-card" th:each="trip : ${trips}">
+
+        <div class="trip-header">
+            <h2 th:text="${trip.name}">Nombre del viaje</h2>
+
+            <a class="edit-button"
+               th:href="@{/trips/update/{id}(id=${trip.id})}">
+                Editar
+            </a>
+        </div>
+
+        <div class="trip-info">
+
+            <div class="info-item">
+                <span class="label">Ciudades</span>
+                <span th:text="${trip.citiesCount}">0</span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Fecha de inicio</span>
+                <span th:text="${trip.startDate}">01/01/2026</span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Fecha de fin</span>
+                <span th:text="${trip.endDate}">05/01/2026</span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Días</span>
+                <span th:text="${trip.totalDays}">5</span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Gastos</span>
+                <span>
+                    <span th:text="${trip.expenses}">0.00</span> €
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

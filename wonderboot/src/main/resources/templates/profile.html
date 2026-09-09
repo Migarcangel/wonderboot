@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi perfil</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="navbar-brand">
+        <a th:href="@{/trips}">Wonderboot</a>
+    </div>
+
+    <div class="navbar-actions">
+        <a th:href="@{/profile}">
+            Mi perfil
+        </a>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    </div>
+
+</nav>
+
+<div class="profile-container">
+
+    <div class="header">
+        <h1>Mi perfil</h1>
+
+        <a class="edit-button" th:href="@{/profile/edit}">
+            Editar perfil
+        </a>
+    </div>
+
+    <!-- Datos personales -->
+
+    <section class="profile-card">
+
+        <h2>Datos personales</h2>
+
+        <div class="profile-info">
+
+            <div class="info-item">
+                <span class="label">Nombre de usuario</span>
+                <span th:text="${profile.username}">usuario</span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Nombre</span>
+                <span th:text="${profile.name}">Nombre</span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Apellidos</span>
+                <span th:text="${profile.surname}">Apellidos</span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">País</span>
+                <span th:text="${profile.country}">España</span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Email</span>
+                <span th:text="${profile.email}">email@email.com</span>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Fecha de nacimiento</span>
+                <span th:text="${profile.birthDate}">01/01/2000</span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Estadísticas -->
+
+    <section class="profile-card">
+
+        <h2>Estadísticas de viajes</h2>
+
+        <div class="statistics">
+
+            <div class="statistic">
+                <span class="statistic-value"
+                      th:text="${statistics.citiesVisited}">
+                    0
+                </span>
+
+                <span class="statistic-label">
+                    Ciudades visitadas
+                </span>
+            </div>
+
+            <div class="statistic">
+                <span class="statistic-value"
+                      th:text="${statistics.daysTravelled}">
+                    0
+                </span>
+
+                <span class="statistic-label">
+                    Días viajados
+                </span>
+            </div>
+
+            <div class="statistic">
+                <span class="statistic-value">
+                    <span th:text="${statistics.moneySpent}">0.00</span> €
+                </span>
+
+                <span class="statistic-label">
+                    Dinero gastado
+                </span>
+            </div>
+
+            <div class="statistic">
+                <span class="statistic-value">
+                    <span th:text="${statistics.averageMoneyPerTrip}">
+                        0.00
+                    </span> €
+                </span>
+
+                <span class="statistic-label">
+                    Media por viaje
+                </span>
+            </div>
+
+            <div class="statistic">
+                <span class="statistic-value">
+                    <span th:text="${statistics.averageMoneyPerYear}">
+                        0.00
+                    </span> €
+                </span>
+
+                <span class="statistic-label">
+                    Media por año
+                </span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <a class="back-link" th:href="@{/trips}">
+        Volver a mis viajes
+    </a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link rel="stylesheet" th:href="@{/css/userForm.css}">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+</head>
+
+<body>
+
+<div class="register-container">
+
+    <h1>Crear cuenta</h1>
+
+    <div class="error" th:if="${param.error}">
+        Campos incorrectos
+    </div>
+
+    <div class="error" th:if="${param.error != null and param.error[0] == 'username'}">
+        El nombre de usuario ya está en uso.
+    </div>
+
+    <form th:action="@{/register}" method="post">
+
+        <div class="form-group">
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="surname">Apellidos:</label>
+            <input type="text" id="surname" name="surname" required>
+        </div>
+
+        <div class="form-group">
+            <label for="country">País:</label>
+
+            <select id="country"
+                    name="country"
+                    class="country-dropdown"
+                    required>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password2">Confirmar Contraseña:</label>
+            <input type="password" id="password2" name="password2" required>
+        </div>
+
+        <div class="form-group">
+            <label for="birthDate">Fecha de nacimiento:</label>
+            <input type="date" id="birthDate" name="birthDate" required>
+        </div>
+
+        <button type="submit">Registrarse</button>
+
+    </form>
+
+    <a class="login-link" th:href="@{/login}">
+        ¿Ya tienes una cuenta? Inicia sesión
+    </a>
+
+</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    console.log("1. Script cargado");
+    console.log("jQuery:", typeof $);
+    console.log("Select2:", typeof $.fn.select2);
+
+    $('.country-dropdown').select2({
+        minimumInputLength: 1,
+
+        ajax: {
+            url: '/api/countries',
+            dataType: 'json',
+            delay: 250,
+
+            data: function (params) {
+                console.log("2. Buscando:", params.term);
+
+                return {
+                    term: params.term
+                };
+            },
+
+            processResults: function (data) {
+                console.log("3. Respuesta:", data);
+
+                return {
+                    results: data.map(country => ({
+                        id: country.name,
+                        text: country.name
+                    }))
+                };
+            }
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,225 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+
+/* Navbar */
+
+.navbar {
+    padding: 15px 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.navbar-brand {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.navbar-brand a {
+    color: #222;
+    text-decoration: none;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-actions a {
+    color: #555;
+    text-decoration: none;
+}
+
+.navbar-actions a:hover {
+    color: #4a90e2;
+}
+
+.navbar-actions form {
+    margin: 0;
+}
+
+.navbar-actions button {
+    padding: 8px 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    background-color: white;
+    color: #555;
+
+    cursor: pointer;
+}
+
+.navbar-actions button:hover {
+    background-color: #eee;
+}
+
+
+/* Contenedor */
+
+.profile-container {
+    width: 800px;
+    max-width: 90%;
+
+    margin: 50px auto;
+}
+
+
+/* Cabecera */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+h1 {
+    margin: 0;
+}
+
+
+/* Tarjetas */
+
+.profile-card {
+    margin-bottom: 20px;
+    padding: 25px;
+
+    background-color: white;
+    border-radius: 10px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.profile-card h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+
+/* Datos personales */
+
+.profile-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    font-size: 14px;
+}
+
+.label {
+    color: #777;
+    font-size: 12px;
+}
+
+
+/* Estadísticas */
+
+.statistics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 15px;
+}
+
+.statistic {
+    padding: 20px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    text-align: center;
+}
+
+.statistic-value {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.statistic-label {
+    color: #777;
+    font-size: 13px;
+}
+
+
+/* Botón editar */
+
+.edit-button {
+    padding: 10px 16px;
+
+    border-radius: 5px;
+
+    background-color: #4a90e2;
+    color: white;
+
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.edit-button:hover {
+    background-color: #357abd;
+}
+
+
+/* Volver */
+
+.back-link {
+    display: block;
+
+    margin-top: 20px;
+
+    text-align: center;
+
+    color: #777;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+    .profile-container {
+        width: 95%;
+    }
+
+    .profile-info {
+        grid-template-columns: 1fr;
+    }
+
+    .statistics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
